@@ -11,7 +11,7 @@ export const brand = {
   phoneTel: "+919052958108",
   email: "hello@zenvego.com",
   web: "www.zenvego.com",
-  social: "@zenvegolife",
+  social: "zenvegolife",
   instagram: "https://instagram.com/zenvegolife",
   facebook: "https://facebook.com/zenvegolife",
   address:
@@ -30,6 +30,12 @@ export type Product = {
   priceMonth: number;
   dot: string; // css color for tracker dot / accents
   art: "fruit" | "power" | "balance" | "signature" | "ragi";
+  /**
+   * Real product photo in /public/products. When set, the menu card renders
+   * this photo; otherwise it falls back to the SVG illustration.
+   * Photos are 5:4 to match the card panel exactly (no cropping).
+   */
+  image?: string;
 };
 
 export const products: Product[] = [
@@ -45,6 +51,7 @@ export const products: Product[] = [
     priceMonth: 1999,
     dot: "#E8891D",
     art: "fruit",
+    image: "/products/zen fruite bowl.png",
   },
   {
     key: "power",
@@ -58,6 +65,7 @@ export const products: Product[] = [
     priceMonth: 2199,
     dot: "#CE4A26",
     art: "power",
+    image: "/products/zen power bowl.png",
   },
   {
     key: "balance",
@@ -76,6 +84,7 @@ export const products: Product[] = [
     priceMonth: 2499,
     dot: "#6D8A57",
     art: "balance",
+    image: "/products/zen balance bowl.png",
   },
   {
     key: "signature",
@@ -94,6 +103,7 @@ export const products: Product[] = [
     priceMonth: 2999,
     dot: "#33582A",
     art: "signature",
+    image: "/products/zen signature bowl.png",
   },
   {
     key: "ragi",
@@ -111,6 +121,7 @@ export const products: Product[] = [
     priceMonth: 1399,
     dot: "#B98A3C",
     art: "ragi",
+    image: "/products/ragi java.png",
   },
 ];
 
@@ -132,26 +143,35 @@ export function waChat(text?: string): string {
   return text ? `${base}?text=${encodeURIComponent(text)}` : base;
 }
 
+/** The four stops on the delivery route, in order. `icon` keys into RouteIcon. */
 export const steps = [
   {
     n: "1",
     title: "Pick your bowl",
-    text: "Choose a Zen bowl that fits your morning — light, protein-packed, or balanced.",
+    text: "Choose the Zen bowl that fits your morning — light and fresh, protein-packed, or fully balanced.",
+    kicker: "Takes a minute",
+    icon: "bowl" as const,
   },
   {
     n: "2",
     title: "Subscribe on WhatsApp",
-    text: "One quick chat sets up your weekly or monthly plan. Pay by UPI.",
+    text: "One quick chat sets up your weekly or monthly plan. Pay by UPI — no app, no account, no lock-in.",
+    kicker: "One message",
+    icon: "chat" as const,
   },
   {
     n: "3",
-    title: "Fresh at your door",
-    text: "We cut and deliver every morning across Gachibowli & nearby.",
+    title: "We prep it fresh at dawn",
+    text: "Every bowl is washed, cut and packed the same morning it reaches you. Nothing sits overnight.",
+    kicker: "5:30 AM daily",
+    icon: "leaf" as const,
   },
   {
     n: "4",
-    title: "Grow your streak",
-    text: "Log each breakfast and watch your mindful-morning streak build.",
+    title: "Delivered to your door",
+    text: "Chilled and sealed, at your doorstep across Gachibowli & nearby before you're out of bed.",
+    kicker: "By 8:00 AM",
+    icon: "home" as const,
   },
 ];
 

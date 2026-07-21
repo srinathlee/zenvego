@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { products, priceFor, waLink, type Plan } from "@/lib/site";
-import { ProductArt } from "./illustrations/ProductArt";
-import { Reveal, RevealGroup, fadeUp } from "./motion";
+import { BowlImage } from "./BowlImage";
 
 const hints: Record<Plan, string> = {
   weekly: "6 mornings a week · pause anytime",
   monthly: "Best value · one payment, a month of mornings",
 };
 
+/** Static menu — no animation. Weekly/Monthly toggle stays (it's functional). */
 export default function Menu() {
   const [plan, setPlan] = useState<Plan>("weekly");
   const per = plan === "weekly" ? "week" : "month";
@@ -18,7 +17,7 @@ export default function Menu() {
   return (
     <section id="menu" className="bg-forest text-cream">
       <div className="max-w-6xl mx-auto px-5 py-20 md:py-28">
-        <Reveal className="text-center max-w-2xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto">
           <span className="text-sm uppercase tracking-widest text-marigold font-semibold">
             The menu
           </span>
@@ -34,7 +33,7 @@ export default function Menu() {
                 type="button"
                 aria-pressed={plan === p}
                 onClick={() => setPlan(p)}
-                className={`rounded-full px-6 py-2 text-sm font-semibold capitalize transition-colors ${
+                className={`rounded-full px-6 py-2 text-sm font-semibold capitalize ${
                   plan === p ? "bg-marigold text-white" : "text-cream/70 hover:text-cream"
                 }`}
               >
@@ -43,24 +42,21 @@ export default function Menu() {
             ))}
           </div>
           <p className="mt-3 text-sm text-cream/60">{hints[plan]}</p>
-        </Reveal>
+        </div>
 
-        <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
-            <motion.article
+            <article
               key={p.key}
-              variants={fadeUp}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="flex flex-col rounded-2xl bg-paper text-ink overflow-hidden shadow-sm hover:shadow-xl transition-shadow"
+              className="flex flex-col rounded-2xl bg-paper text-ink overflow-hidden shadow-sm"
             >
-              {/* sand illustration panel */}
-              <div className="relative bg-sand px-4 pt-4">
-                <span className="absolute top-4 left-4 rounded-full bg-chili text-white text-xs font-bold px-3 py-1 shadow">
+              {/* product photo (or SVG placeholder) — 5:4 matches the photos exactly */}
+              <div className="relative aspect-5/4 bg-sand overflow-hidden">
+                <span className="absolute top-4 left-4 z-10 rounded-full bg-chili text-white text-xs font-bold px-3 py-1 shadow-md">
                   ₹{priceFor(p, plan)}
                   <span className="font-medium">/{per}</span>
                 </span>
-                <ProductArt art={p.art} className="w-full h-36" />
+                <BowlImage product={p} />
               </div>
 
               <div className="flex flex-col flex-1 p-6">
@@ -100,9 +96,9 @@ export default function Menu() {
                   Order on WhatsApp
                 </a>
               </div>
-            </motion.article>
+            </article>
           ))}
-        </RevealGroup>
+        </div>
 
         <p className="mt-8 text-center text-xs text-cream/50">
           Nutrition values are approximate, per serving.

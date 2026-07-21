@@ -1,78 +1,30 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { HeroArt } from "./illustrations/HeroArt";
+import Image from "next/image";
 import { brand, waChat } from "@/lib/site";
 
-const easeOut = [0.22, 1, 0.36, 1] as const;
-
-const line = {
-  hidden: { opacity: 0, y: 24 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: easeOut, delay: 0.1 + i * 0.12 },
-  }),
-};
-
+/** Static hero — no animation. Copy on the left, the branded bowl image on the right. */
 export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-5 pt-14 pb-16 md:pt-20 md:pb-24 grid gap-10 md:grid-cols-2 items-center">
+      <div className="max-w-7xl mx-auto px-5 pt-12 pb-14 md:pt-14 md:pb-16 grid gap-8 md:gap-8 md:grid-cols-[0.85fr_1.15fr] items-center">
         {/* copy */}
-        <div>
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full bg-sand text-forest px-4 py-1.5 text-sm font-medium"
-          >
-            🌅 {brand.positioning}
-          </motion.span>
-
-          <h1 className="mt-6 font-display font-extrabold text-6xl md:text-7xl leading-[0.95] tracking-tight">
-            {["Stay zen.", "Eat +ve.", "Go far."].map((t, i) => (
-              <motion.span
-                key={t}
-                custom={i}
-                variants={line}
-                initial="hidden"
-                animate="show"
-                className="block"
-              >
-                {t === "Eat +ve." ? (
-                  <>
-                    Eat{" "}
-                    <span className="text-marigold inline-block rotate-[-4deg]">
-                      +ve.
-                    </span>
-                  </>
-                ) : (
-                  t
-                )}
-              </motion.span>
-            ))}
+        <div className="order-2 md:order-1">
+          <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
+            <span className="block">Stay zen.</span>
+            <span className="block">
+              Eat <span className="text-marigold">+ve.</span>
+            </span>
+            <span className="block">Go far.</span>
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-6 text-lg text-ink/70 max-w-md"
-          >
+          <p className="mt-6 text-lg text-ink/70 max-w-md">
             A calm daily breakfast ritual — fresh plant-based bowls, cut every
             morning and delivered to your door in Gachibowli. {brand.subline}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
-          >
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href="#menu"
-              className="rounded-full bg-marigold text-white px-7 py-3.5 font-semibold shadow-lg shadow-marigold/25 hover:scale-[1.03] transition-transform"
+              className="rounded-full bg-marigold text-white px-7 py-3.5 font-semibold shadow-md hover:bg-[#d97b12] transition-colors"
             >
               See the menu
             </a>
@@ -84,32 +36,26 @@ export default function Hero() {
             >
               Chat on WhatsApp
             </a>
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.75 }}
-            className="mt-7 text-sm font-medium text-forest/70"
-          >
+          <p className="mt-7 text-sm font-medium text-forest/70">
             Plant based · High protein · Mindful living
-          </motion.p>
+          </p>
         </div>
 
-        {/* illustration */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: easeOut, delay: 0.25 }}
-          className="relative"
-        >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <HeroArt className="w-full max-w-md mx-auto" />
-          </motion.div>
-        </motion.div>
+        {/* branded bowl image — no frame, blends into the cream page */}
+        <div className="order-1 md:order-2">
+          <div className="relative w-full aspect-3/2">
+            <Image
+              src="/assets/hero section bowl image.png"
+              alt="A Zenvego bowl packed with steamed sprouts, broccoli, peppers, zucchini, cauliflower and a seed mix"
+              fill
+              sizes="(max-width: 768px) 100vw, 55vw"
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

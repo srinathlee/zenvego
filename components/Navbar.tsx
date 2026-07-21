@@ -6,7 +6,7 @@ import { waChat } from "@/lib/site";
 
 const links = [
   { href: "#menu", label: "Menu" },
-  { href: "#streak", label: "Zen Streak" },
+  { href: "#plan", label: "Zen Planner" },
   { href: "#how", label: "How it works" },
   { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
@@ -32,7 +32,7 @@ export default function Navbar() {
     >
       <nav className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-4">
         <a href="#top" aria-label="zenvego home">
-          <LogoLockup markClass="w-9 h-9" wordClass="text-2xl" />
+          <LogoLockup className="h-11 sm:h-12" />
         </a>
 
         <div className="hidden min-[940px]:flex items-center gap-7 text-sm font-medium text-forest/80">

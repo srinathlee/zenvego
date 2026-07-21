@@ -42,6 +42,18 @@ body {
   color: #fff;
 }
 
+/* No blinking text caret on non-editable content (e.g. browser caret browsing) */
+* {
+  caret-color: transparent;
+}
+input,
+textarea,
+select,
+[contenteditable="true"],
+[contenteditable=""] {
+  caret-color: auto;
+}
+
 /* Anchor targets clear the sticky nav */
 :where(section, [id]) {
   scroll-margin-top: 5rem;
