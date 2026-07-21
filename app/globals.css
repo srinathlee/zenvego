@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f1e1;
+  --foreground: #20301a;
 }
 
 @theme inline {
+  /* Base */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Zenvego brand palette */
+  --color-forest: #27461f; /* primary bands / ink */
+  --color-pine: #33582a;
+  --color-moss: #6d8a57;
+  --color-cream: #f7f1e1; /* page background */
+  --color-sand: #ede4cc; /* chips / illustration panels */
+  --color-paper: #fffdf4; /* cards */
+  --color-marigold: #e8891d; /* accent: "+ve", CTAs */
+  --color-chili: #ce4a26; /* price pills */
+  --color-ink: #20301a;
+
+  /* Fonts (wired in layout.tsx) */
+  --font-sans: var(--font-poppins);
+  --font-display: var(--font-baloo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-marigold);
+  color: #fff;
+}
+
+/* Anchor targets clear the sticky nav */
+:where(section, [id]) {
+  scroll-margin-top: 5rem;
+}
+
+/* Visible focus outline */
+:focus-visible {
+  outline: 3px solid var(--color-marigold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* "+" bullet motif (ties into "Eat +ve") */
+.plus-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.plus-list > li {
+  position: relative;
+  padding-left: 1.4em;
+}
+.plus-list > li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  color: var(--color-marigold);
+  font-weight: 800;
+  font-family: var(--font-display), sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
